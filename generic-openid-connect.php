@@ -109,6 +109,12 @@ class GenericOpenIDConnect {
         }
 
         $user_id   = $user_claim[$this->identity_key];
+//add user data
+	$user_email = $user_claim["email"];
+        $first_name = $user_claim["given_name"];
+        $last_name  = $user_claim["family_name"];
+        $nick_name  = $user_claim["name"];
+
         if ( strlen($user_id) == 0 ) {
             $this->error_redirect(5);
         }
@@ -120,7 +126,18 @@ class GenericOpenIDConnect {
             // challenge user create
             if ( strlen( $this->allowed_regex ) > 0 && preg_match( $this->allowed_regex, $user_id ) ===  1) {
                 $uid = wp_create_user( $user_id, wp_generate_password( 12, false ), $user_id );
-                $user = get_user_by( 'id', $uid );
+              
+		//add user data
+                $userdata = array(
+                    'ID'            =>  $uid,
+                    'user_email'    =>  $user_email,
+                    'nickname'      =>  $nickname,
+                    'first_name'    =>  $first_name,
+                    'last_name'     =>  $last_name,
+                    );
+                wp_update_user( $userdata );
+
+		$user = get_user_by( 'id', $uid );
             } else {
                 $this->error_redirect(6, $user_id);
                 
