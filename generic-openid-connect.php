@@ -134,7 +134,7 @@ class GenericOpenIDConnect {
                     'nickname'      =>  $nick_name,
                     'first_name'    =>  $first_name,
                     'last_name'     =>  $last_name,
-                    'display_name'  =>  $nickname,
+                    'display_name'  =>  $nick_name,
                     );
                 wp_update_user( $userdata );
 
