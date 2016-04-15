@@ -110,7 +110,7 @@ class GenericOpenIDConnect {
 
         $user_id   = $user_claim[$this->identity_key];
 //add user data
-	$user_email = $user_claim["email"];
+	    $user_email = $user_claim["email"];
         $first_name = $user_claim["given_name"];
         $last_name  = $user_claim["family_name"];
         $nick_name  = $user_claim["name"];
@@ -131,9 +131,10 @@ class GenericOpenIDConnect {
                 $userdata = array(
                     'ID'            =>  $uid,
                     'user_email'    =>  $user_email,
-                    'nickname'      =>  $nickname,
+                    'nickname'      =>  $nick_name,
                     'first_name'    =>  $first_name,
                     'last_name'     =>  $last_name,
+                    'display_name'  =>  $nickname,
                     );
                 wp_update_user( $userdata );
 
